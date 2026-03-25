@@ -1,2 +1,98 @@
+# ─────────────────────────────────────────────
+# Java
+# ─────────────────────────────────────────────
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+replay_pid*
+
+# ─────────────────────────────────────────────
+# Maven
+# ─────────────────────────────────────────────
 target/
-logs/*.log
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# ─────────────────────────────────────────────
+# Serenity BDD Reports & Logs
+# ─────────────────────────────────────────────
+serenity-reports/
+site/
+logs/
+*.log
+
+# ─────────────────────────────────────────────
+# IntelliJ IDEA
+# ─────────────────────────────────────────────
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+.idea_modules/
+
+# ─────────────────────────────────────────────
+# Eclipse
+# ─────────────────────────────────────────────
+.project
+.classpath
+.settings/
+bin/
+.metadata/
+
+# ─────────────────────────────────────────────
+# VS Code
+# ─────────────────────────────────────────────
+.vscode/
+*.code-workspace
+
+# ─────────────────────────────────────────────
+# OS
+# ─────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+# ─────────────────────────────────────────────
+# Environment / Secrets
+# ─────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+secrets.properties
+credentials.properties
+src/test/resources/environments/local.properties
+
+# ─────────────────────────────────────────────
+# Test Artifacts
+# ─────────────────────────────────────────────
+screenshots/
+test-results/
+cucumber-reports/
+allure-results/
+allure-report/
+
+# ─────────────────────────────────────────────
+# Cucumber / JUnit
+# ─────────────────────────────────────────────
+*.xml.bak
+failsafe-summary.xml
+
+# ─────────────────────────────────────────────
+# Test Reports
+# ─────────────────────────────────────────────
+report/serenity
