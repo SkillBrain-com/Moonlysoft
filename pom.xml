@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.automation</groupId>
+    <artifactId>java-serenity-framework</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>Java Serenity BDD Framework</name>
+    <description>Test Automation Framework — Serenity BDD + Cucumber + JUnit + Maven</description>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Core library versions -->
+        <serenity.version>4.3.4</serenity.version>
+        <junit.version>4.13.2</junit.version>
+        <assertj.version>3.25.3</assertj.version>
+        <logback.version>1.4.14</logback.version>
+
+        <!-- Plugin versions -->
+        <maven.surefire.version>3.2.5</maven.surefire.version>
+
+        <!--
+            Runtime-overridable properties.
+            Usage examples:
+              mvn test -Dcucumber.filter.tags=@test
+              mvn test -Denvironment=local -Dcucumber.filter.tags="@api and not @notfound"
+              mvn test -Denvironment=stage
+        -->
+        <environment>test</environment>
+        <cucumber.filter.tags></cucumber.filter.tags>
+        <tags></tags>
+    </properties>
+
+    <dependencies>
+        <!-- ── Serenity BDD ──────────────────────────────────────────────── -->
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-core</artifactId>
+            <version>${serenity.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-cucumber</artifactId>
+            <version>${serenity.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-junit</artifactId>
+            <version>${serenity.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- REST-Assured integration for API tests -->
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-rest-assured</artifactId>
+            <version>${serenity.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Screenplay pattern support (optional) -->
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-screenplay</artifactId>
+            <version>${serenity.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ── Test libraries ────────────────────────────────────────────── -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ── Logging ───────────────────────────────────────────────────── -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!--
+                maven-surefire-plugin:
+                  - discovers *Runner.java files under src/test/java/runners/
+                  - forwards -D properties so cucumber.filter.tags and environment
+                    are available inside the test JVM
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
+                <configuration>
+                    <includes>
+                        <include>**/runners/**Runner.java</include>
+                    </includes>
+                    <systemPropertyVariables>
+                        <!-- Explicit forwarding ensures the properties survive JVM forking -->
+                        <cucumber.filter.tags>${cucumber.filter.tags}</cucumber.filter.tags>
+                        <environment>${environment}</environment>
+                    </systemPropertyVariables>
+                    <!--
+                        Required for ByteBuddy / Serenity step interception on Java 11+.
+                        These opens allow runtime byte-code generation to work correctly.
+                    -->
+                    <argLine>
+                        --add-opens java.base/java.lang=ALL-UNNAMED
+                        --add-opens java.base/java.util=ALL-UNNAMED
+                        --add-opens java.base/java.lang.reflect=ALL-UNNAMED
+                    </argLine>
+                </configuration>
+            </plugin>
+
+            <!--
+                serenity-maven-plugin:
+                  - generates the HTML living-documentation report
+                  - bound to the `test` phase so `mvn test` produces full reports
+            -->
+            <plugin>
+                <groupId>net.serenity-bdd.maven.plugins</groupId>
+                <artifactId>serenity-maven-plugin</artifactId>
+                <version>${serenity.version}</version>
+                <configuration>
+                    <tags>${tags}</tags>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>serenity-reports</id>
+                        <!-- Using `test` phase so `mvn test` generates reports too -->
+                        <phase>test</phase>
+                        <goals>
+                            <goal>aggregate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

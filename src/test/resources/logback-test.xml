@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/test-execution.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/test-execution.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ── Framework loggers ──────────────────────────────────────────── -->
+    <logger name="com.framework" level="DEBUG"/>
+    <logger name="net.serenitybdd" level="INFO"/>
+    <logger name="net.thucydides"  level="INFO"/>
+
+    <!-- ── Selenium / WebDriver ───────────────────────────────────────── -->
+    <logger name="org.openqa.selenium" level="WARN" additivity="false"/>
+    <logger name="io.github.bonigarcia" level="INFO"/>
+
+    <!-- ── Netty / AsyncHttpClient ────────────────────────────────────────
+         Suppress the "Connection reset" WebSocket warning that fires every
+         time Serenity closes the browser and Chrome drops the CDP socket.
+         This is expected teardown behaviour, not a real error.
+
+         additivity="false" stops these loggers propagating to the root
+         logger, which would otherwise re-emit the message to all appenders
+         regardless of the level set here.
+    ──────────────────────────────────────────────────────────────────── -->
+    <logger name="io.netty"                                            level="ERROR" additivity="false"/>
+    <logger name="org.asynchttpclient"                                 level="ERROR" additivity="false"/>
+    <logger name="org.asynchttpclient.netty.handler.WebSocketHandler" level="OFF"   additivity="false"/>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+</configuration>
