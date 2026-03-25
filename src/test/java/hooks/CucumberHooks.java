@@ -1,21 +1,21 @@
 package hooks;
 
 import config.EnvironmentConfig;
-import io.cucumber.java.After;
-import io.cucumber.java.AfterAll;
-import io.cucumber.java.Before;
-import io.cucumber.java.BeforeAll;
-import io.cucumber.java.Scenario;
+import io.cucumber.java.*;
 import net.thucydides.core.webdriver.ThucydidesWebDriverSupport;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.FileUtils;
+import utils.LogUtils;
+
+import java.io.IOException;
 
 /**
  * Global Cucumber hooks — run before/after every scenario and the full suite.
- *
+ * <p>
  * Serenity handles screenshots and report attachment automatically;
  * these hooks are for additional cross-cutting concerns (logging, context setup, etc.).
  */
@@ -24,12 +24,18 @@ public class CucumberHooks {
     private static final Logger LOG = LoggerFactory.getLogger(CucumberHooks.class);
 
     @BeforeAll
-    public static void beforeSuite() {
+    public static void beforeSuite() throws IOException {
         LOG.info("=== Test Suite Starting ===");
         LOG.info("Active environment : {}", EnvironmentConfig.getActiveEnvironment());
         LOG.info("Base URL           : {}", EnvironmentConfig.getBaseUrl());
         LOG.info("API URL            : {}", EnvironmentConfig.getApiUrl());
+        LOG.info("BROWSER            : {}", EnvironmentConfig.getBrowser());
+        LOG.info("CLEARING previous test report generated in report folder.");
+        FileUtils.clearReportFolder();
+        LOG.info("CLEARING previous test logs...");
+        LogUtils.clearLogFile();
     }
+
 
     @Before
     public void beforeScenario(Scenario scenario) {

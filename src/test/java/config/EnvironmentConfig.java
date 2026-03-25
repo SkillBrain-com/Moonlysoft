@@ -1,10 +1,13 @@
 package config;
 
-import net.serenitybdd.model.environment.EnvironmentSpecificConfiguration;
 import net.thucydides.model.environment.SystemEnvironmentVariables;
 import net.thucydides.model.util.EnvironmentVariables;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 /**
  * Central accessor for environment-specific configuration values.
@@ -55,20 +58,29 @@ public class EnvironmentConfig {
      * @param key property key (e.g. "base.url")
      * @return resolved value, or {@code null} when not found
      */
+//    TODO - leave it if you want to read the test properties from the serenity.conf file
+//    public static String getProperty(String key) {
+//        String value = EnvironmentSpecificConfiguration
+//                .from(ENV_VARS)
+//                .getProperty(key);
+//        LOG.debug("[env={}] {} = {}", getActiveEnvironment(), key, value);
+//        return value;
+//    }
+
     public static String getProperty(String key) {
-        String value = EnvironmentSpecificConfiguration
-                .from(ENV_VARS)
-                .getProperty(key);
-        LOG.debug("[env={}] {} = {}", getActiveEnvironment(), key, value);
-        return value;
+        Properties properties = new Properties();
+        String env = System.getProperty("environment", "test"); // local | test | stage
+        InputStream is = EnvironmentConfig.class
+                .getClassLoader()
+                .getResourceAsStream("environments/" + env + ".properties");
+        try {
+            properties.load(is);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return properties.getProperty(key);
     }
 
-    /**
-     * Generic accessor with a fallback default value.
-     *
-     * @param key          property key
-     * @param defaultValue value to return when the key is absent
-     */
     public static String getProperty(String key, String defaultValue) {
         String value = getProperty(key);
         return (value != null && !value.isBlank()) ? value : defaultValue;

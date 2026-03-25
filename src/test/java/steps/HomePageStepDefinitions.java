@@ -3,17 +3,12 @@ package steps;
 import config.EnvironmentConfig;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import net.serenitybdd.annotations.Managed;
-import net.serenitybdd.annotations.Steps;
-import org.openqa.selenium.WebDriver;
 import pages.HomePage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class HomePageStepDefinitions {
 
-
-    @Steps
     private HomePage homePage;
 
     @Given("I open the application home page")
