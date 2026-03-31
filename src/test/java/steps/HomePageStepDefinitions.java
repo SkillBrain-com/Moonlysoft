@@ -11,7 +11,7 @@ public class HomePageStepDefinitions {
 
     private HomePage homePage;
 
-    @Given("I open the application home page")
+     @Given("I open the application home page")
     public void iOpenTheApplicationHomePage() {
         String baseUrl = EnvironmentConfig.getBaseUrl();
         homePage.openHomePage(baseUrl);
