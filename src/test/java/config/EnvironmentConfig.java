@@ -12,7 +12,7 @@ import java.util.Properties;
 /**
  * Central accessor for environment-specific configuration values.
  *
- * Values are read from src/test/resources/serenity.conf under the
+ * Values are read from src/test/resources/environemnts/file.properties under the
  * block matching the active environment (default: "test").
  *
  * Select the environment at runtime:
