@@ -102,4 +102,8 @@ public class LoginPage extends PageObject {
 
     }
 
+    public void fillInPassword  (){
+        LOG.info("Trying to fill in the password...");
+        password.sendKeys(" ");
+    }
 }

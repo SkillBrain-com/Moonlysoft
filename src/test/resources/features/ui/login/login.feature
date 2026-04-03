@@ -2,12 +2,12 @@ Feature: Login functionality
 
   Background:
     Given I navigate to login page
-
+  @this
   Scenario: Login with REGULAR user
     When I login as "regular" user
     Then I check user is logged in
 
-  @this
+
   Scenario Outline: Login with ALL user
     When I login as <user> user
     Then I check user is logged in
@@ -18,7 +18,9 @@ Feature: Login functionality
       | "expert"  |
       | "admin"   |
 
-#    TODO - implement negative scenarios
+#  TODO - implement negative scenarios
+
+    Scenario: Login with invalid credentials
     And I fill in email "sdada"
     And I fill in password ""
     And I click on login button

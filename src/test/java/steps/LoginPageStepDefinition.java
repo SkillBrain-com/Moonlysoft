@@ -1,5 +1,6 @@
 package steps;
 
+import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -29,5 +30,10 @@ public class LoginPageStepDefinition {
     @And("I click on login button")
     public void iClickOnLoginButton() {
         loginPage.clickOnLoginButton();
+    }
+
+    @And("I fill in password {string}")
+    public void iFillInPassword() {
+        loginPage.fillInPassword();
     }
 }
