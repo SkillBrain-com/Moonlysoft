@@ -32,6 +32,9 @@ public class LoginPage extends PageObject {
     @FindBy(xpath = "//button[text()='Autentifică-te']")
     private WebElement loginButton;
 
+    @FindBy(xpath = "//p[normalize-space()='Parola este obligatorie']")
+    private WebElement passwordError;
+
     private static final Logger LOG = LoggerFactory.getLogger(LoginPage.class);
 
 
@@ -99,7 +102,14 @@ public class LoginPage extends PageObject {
     }
 
     public void fillInUserEmail(String email) {
-
+        LOG.info("Trying to fill in email...");
+    this.email.sendKeys(email);
     }
 
+    public void fillInUserPassword(String password){
+        this.password.sendKeys(password);
+    }
+
+    public void checkPasswordError() {assertEquals("Parola este obligatorie",passwordError.getText() );}
 }
+

@@ -7,7 +7,7 @@ Feature: Login functionality
     When I login as "regular" user
     Then I check user is logged in
 
-  @this
+
   Scenario Outline: Login with ALL user
     When I login as <user> user
     Then I check user is logged in
@@ -18,8 +18,10 @@ Feature: Login functionality
       | "expert"  |
       | "admin"   |
 
+  @this
+    Scenario: Login with wrong credentials
 #    TODO - implement negative scenarios
-    And I fill in email "sdada"
+    And I fill in email ""
     And I fill in password ""
     And I click on login button
     Then I check error message is displayed
