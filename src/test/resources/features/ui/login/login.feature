@@ -18,7 +18,7 @@ Feature: Login functionality
       | "expert"  |
       | "admin"   |
 
-  @this
+#  @this
     Scenario: Login with wrong credentials
 #    TODO - implement negative scenarios
     And I fill in email ""

@@ -1,8 +1,10 @@
 package steps;
 
 import config.EnvironmentConfig;
+import io.cucumber.java.PendingException;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import pages.HomePage;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,4 +26,5 @@ public class HomePageStepDefinitions {
                 .as("Expected page title to be non-empty for env: %s", EnvironmentConfig.getActiveEnvironment())
                 .isNotBlank();
     }
+
 }
