@@ -2,7 +2,7 @@ Feature: Requests functionality
 
   Background:
     Given I navigate to login page
-    When I login as "regular" user
+    When I login as "expert" user
     And  I navigate to requests page
   @this
     Scenario:
