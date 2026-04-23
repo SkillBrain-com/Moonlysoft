@@ -75,7 +75,7 @@ public class LoginPage extends PageObject {
     }
 
     private String getPassword(String user) {
-        String password = switch (user.toLowerCase()) {
+        return switch (user.toLowerCase()) {
             case "regular" -> getCredentialsProperties().getProperty("regular.password");
             case "expert" -> getCredentialsProperties().getProperty("expert.password");
             case "admin" -> getCredentialsProperties().getProperty("admin.password");
@@ -84,7 +84,6 @@ public class LoginPage extends PageObject {
                 throw new RuntimeException("Selected user is not valid.");
             }
         };
-        return password;
     }
 
     private Properties getCredentialsProperties() {
@@ -103,13 +102,15 @@ public class LoginPage extends PageObject {
 
     public void fillInUserEmail(String email) {
         LOG.info("Trying to fill in email...");
-    this.email.sendKeys(email);
+        this.email.sendKeys(email);
     }
 
-    public void fillInUserPassword(String password){
+    public void fillInUserPassword(String password) {
         this.password.sendKeys(password);
     }
 
-    public void checkPasswordError() {assertEquals("Parola este obligatorie",passwordError.getText() );}
+    public void checkPasswordError() {
+        assertEquals("Parola este obligatorie", passwordError.getText());
+    }
 }
 
