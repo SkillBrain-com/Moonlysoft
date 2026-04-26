@@ -73,6 +73,8 @@ public class RegisterPage extends PageObject {
 
     @FindBy(xpath = "//button[contains(text(),'Accept și Creează Cont')]")
     private WebElement acceptButton;
+    @FindBy(xpath = "//a[contains(text(),'Înregistrează-te')]")
+    private WebElement registerButton;
 
     private static final Logger LOG = LoggerFactory.getLogger(RegisterPage.class);
 
@@ -82,8 +84,10 @@ public class RegisterPage extends PageObject {
 
     public void navigateToRegisterPage() {
         LOG.info("Navigating to register page...");
-        String url = EnvironmentConfig.getBaseUrl() + "/register";
+        String url = EnvironmentConfig.getBaseUrl();
         openAt(url);
+        clickOn(registerButton);
+
     }
 
     // ================================================================

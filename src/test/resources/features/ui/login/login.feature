@@ -3,7 +3,7 @@ Feature: Login functionality
   Background:
     Given I navigate to login page
 
-    @this
+
   Scenario: Login with REGULAR user
     When I login as "regular" user
     Then I check user is logged in
