@@ -15,6 +15,7 @@ import java.time.Duration;
 import static org.junit.Assert.assertEquals;
 
 public class RegisterPage extends PageObject {
+    private UtilsPage js;
 
     // ── Pas 1: Informații Generale ──────────────────────────────────
     @FindBy(xpath = "//input[@id='first_name']")
