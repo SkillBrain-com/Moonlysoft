@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 
+import static org.junit.Assert.assertEquals;
+
 public class RegisterPage extends PageObject {
 
     // ── Pas 1: Informații Generale ──────────────────────────────────
@@ -252,5 +254,129 @@ public class RegisterPage extends PageObject {
     public void clickOnLoginLink() {
         LOG.info("Clicking on 'Autentifica-te' link...");
         this.loginLink.click();
+    }
+    // ================================================================
+    // ASSERTURI PAS 1 - ERORI CAMPURI
+    // Adauga-le in RegisterPage.java
+    // ================================================================
+
+    // -- Elemente erori Pas 1 --
+    @FindBy(xpath = "//p[contains(@class,'Mui-error') and contains(text(),'Prenumele este obligatoriu')]")
+    private WebElement firstNameError;
+
+    @FindBy(xpath = "//p[contains(@class,'Mui-error') and contains(text(),'Numele este obligatoriu')]")
+    private WebElement lastNameError;
+
+    @FindBy(xpath = "//p[contains(@class,'Mui-error') and contains(text(),'Email-ul este obligatoriu')]")
+    private WebElement emailError;
+
+    @FindBy(xpath = "//p[contains(@class,'Mui-error') and contains(text(),'Parola este obligatorie')]")
+    private WebElement passwordError;
+
+    // -- Elemente erori Pas 2 --
+    @FindBy(xpath = "//p[contains(@class,'Mui-error') and contains(text(),'Specialitatea Medicală este obligatorie')]")
+    private WebElement specialtyError;
+
+    @FindBy(xpath = "//p[contains(@class,'Mui-error') and contains(text(),'CUIM este obligatoriu')]")
+    private WebElement cuimError;
+
+    @FindBy(xpath = "//p[contains(@class,'Mui-error') and contains(text(),'Gradul de Specialitate este obligatoriu')]")
+    private WebElement specialtyRankError;
+
+    @FindBy(xpath = "//p[contains(@class,'Mui-error') and contains(text(),'Locul de Muncă este obligatoriu')]")
+    private WebElement workingPlaceError;
+
+    @FindBy(xpath = "//p[contains(@class,'Mui-error') and contains(text(),'Județul este obligatoriu')]")
+    private WebElement judetError;
+
+    @FindBy(xpath = "//p[contains(@class,'Mui-error') and contains(text(),'Localitatea este obligatorie')]")
+    private WebElement localitateError;
+
+    // -- Stepper element pentru verificare pas activ --
+    @FindBy(xpath = "//span[contains(@class,'MuiStepLabel-label') and contains(@class,'Mui-active')]")
+    private WebElement activeStepLabel;
+
+    // ================================================================
+    // METODE ASSERT PAS 1
+    // ================================================================
+
+    public void checkFirstNameError() {
+        LOG.info("Checking first name error message...");
+        assertEquals("Prenumele este obligatoriu", firstNameError.getText());
+    }
+
+    public void checkLastNameError() {
+        LOG.info("Checking last name error message...");
+        assertEquals("Numele este obligatoriu", lastNameError.getText());
+    }
+
+    public void checkEmailError() {
+        LOG.info("Checking email error message...");
+        assertEquals("Email-ul este obligatoriu", emailError.getText());
+    }
+
+    public void checkPasswordError() {
+        LOG.info("Checking password error message...");
+        assertEquals("Parola este obligatorie", passwordError.getText());
+    }
+
+    // Verifica ca TOATE erorile Pas 1 apar cand nu completezi nimic
+    public void checkAllStep1Errors() {
+        LOG.info("Checking all Step 1 error messages...");
+        checkFirstNameError();
+        checkLastNameError();
+        checkEmailError();
+        checkPasswordError();
+    }
+
+    // Verifica ca am trecut la Pas 2
+    public void checkStep2IsActive() {
+        LOG.info("Checking Step 2 is active...");
+        assertEquals("Informații Profesionale", activeStepLabel.getText());
+    }
+
+    // ================================================================
+    // METODE ASSERT PAS 2
+    // ================================================================
+
+    public void checkSpecialtyError() {
+        LOG.info("Checking specialty error message...");
+        assertEquals("Specialitatea Medicală este obligatorie", specialtyError.getText());
+    }
+
+    public void checkCuimError() {
+        LOG.info("Checking CUIM error message...");
+        assertEquals("CUIM este obligatoriu", cuimError.getText());
+    }
+
+    public void checkSpecialtyRankError() {
+        LOG.info("Checking specialty rank error message...");
+        assertEquals("Gradul de Specialitate este obligatoriu", specialtyRankError.getText());
+    }
+
+    public void checkWorkingPlaceError() {
+        LOG.info("Checking working place error message...");
+        assertEquals("Locul de Muncă este obligatoriu", workingPlaceError.getText());
+    }
+
+    public void checkJudetError() {
+        LOG.info("Checking judet error message...");
+        assertEquals("Județul este obligatoriu", judetError.getText());
+    }
+
+    public void checkLocalitateError() {
+        LOG.info("Checking localitate error message...");
+        assertEquals("Localitatea este obligatorie", localitateError.getText());
+    }
+
+    // Verifica ca TOATE erorile Pas 2 apar cand nu completezi nimic
+    public void checkAllStep2Errors() {
+        LOG.info("Checking all Step 2 error messages...");
+        checkSpecialtyError();
+        checkCuimError();
+        checkSpecialtyRankError();
+        checkWorkingPlaceError();
+        checkJudetError();
+        checkLocalitateError();
     }
 }
