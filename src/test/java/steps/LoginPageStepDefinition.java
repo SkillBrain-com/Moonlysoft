@@ -87,5 +87,10 @@ public class LoginPageStepDefinition {
     @Then("the user should see EXPERT-specific menu items")
     public void theUserShouldSeeEXPERTSpecificMenuItems() {
     }
+
+    @And("I fill in email {dyn}")
+    public void iFillInEmailName(String email) {
+        loginPage.fillInUserEmail(email);
+    }
 }
 

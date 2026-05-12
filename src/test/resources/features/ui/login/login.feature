@@ -19,9 +19,9 @@ Feature: Login functionality
       | "admin"   |
 
 
-    Scenario: Login with wrong credentials
+  Scenario: Login with wrong credentials
 #    TODO - implement negative scenarios
-    And I fill in email ""
+#    And I fill in email ""
     And I fill in password ""
     And I click on login button
     Then I check error message is displayed
@@ -48,16 +48,15 @@ Feature: Login functionality
     Then the user should see EXPERT-specific menu items
 
 
-    Scenario: Create case successfully
-      Given the REGULAR user is on the dashboard
-      And the user clicks on "New request"
-      When the user fills all required fields in the new case form
-      And selects experts
-      And uploads valid files
-      Then the case should be created successfully
+  Scenario: Create case successfully
+    Given the REGULAR user is on the dashboard
+    And the user clicks on "New request"
+    When the user fills all required fields in the new case form
+    And selects experts
+    And uploads valid files
+    Then the case should be created successfully
 
-  @this
-    Scenario: New case validation errors
+  Scenario: New case validation errors
 #      Given the REGULAR user is creating a case
 #      When required fields are missing
 #      Then validation errors should be displayed
@@ -67,5 +66,13 @@ Feature: Login functionality
     And user completes log out process
     And I check user is logged out
 
+    @this
+  Scenario Outline: Login with random credentials
+#    TODO - implement negative scenarios
+    And I fill in email <name>
+    And I fill in password ""
 
+    Examples:
+      | name             |
+      | {date:today+:yyyyMMdd} |
 
