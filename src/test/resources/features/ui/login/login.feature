@@ -19,7 +19,9 @@ Feature: Login functionality
       | "admin"   |
 
 
-  Scenario: Login with wrong credentials
+
+
+    Scenario: Login with wrong credentials
 #    TODO - implement negative scenarios
 #    And I fill in email ""
     And I fill in password ""
@@ -56,7 +58,10 @@ Feature: Login functionality
     And uploads valid files
     Then the case should be created successfully
 
-  Scenario: New case validation errors
+
+
+    Scenario: New case validation errors
+
 #      Given the REGULAR user is creating a case
 #      When required fields are missing
 #      Then validation errors should be displayed
@@ -66,7 +71,7 @@ Feature: Login functionality
     And user completes log out process
     And I check user is logged out
 
-    @this
+#    @this
   Scenario Outline: Login with random credentials
 #    TODO - implement negative scenarios
     And I fill in email <name>

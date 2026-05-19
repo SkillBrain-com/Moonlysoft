@@ -6,23 +6,23 @@ import org.junit.runner.RunWith;
 
 /**
  * Entry point for Cucumber tests via JUnit.
- *
+ * <p>
  * Run all tests:
- *   mvn test
- *
+ * mvn test
+ * <p>
  * Filter by tag:
- *   mvn test -Dcucumber.filter.tags=@test
- *   mvn test -Dcucumber.filter.tags="@api and not @notfound"
- *
+ * mvn test -Dcucumber.filter.tags=@test
+ * mvn test -Dcucumber.filter.tags="@api and not @notfound"
+ * <p>
  * Select environment:
- *   mvn test -Denvironment=local
- *   mvn test -Denvironment=stage -Dcucumber.filter.tags=@smoke
+ * mvn test -Denvironment=local
+ * mvn test -Denvironment=stage -Dcucumber.filter.tags=@smoke
  */
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(
         features = "src/test/resources/features",
-        glue     = {"steps", "hooks"},
-        plugin   = {
+        glue = {"steps", "hooks"},
+        plugin = {
                 "pretty",
                 "json:target/cucumber-reports/cucumber.json",
                 "html:target/cucumber-reports/cucumber.html"

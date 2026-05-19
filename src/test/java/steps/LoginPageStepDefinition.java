@@ -1,5 +1,6 @@
 package steps;
 
+import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -47,6 +48,7 @@ public class LoginPageStepDefinition {
         loginPage.checkPasswordError();
     }
 
+
     @Given("the user is logged in as REGULAR")
     public void theUserIsLoggedInAsREGULAR() {
 
@@ -68,9 +70,6 @@ public class LoginPageStepDefinition {
     public void theUserNavigatesToTheAdminPage() {
     }
 
-    @Then("access should be denied")
-    public void accessShouldBeDenied() {
-    }
 
     @And("the user should not see the admin panel content")
     public void theUserShouldNotSeeTheAdminPanelContent() {
@@ -88,9 +87,11 @@ public class LoginPageStepDefinition {
     public void theUserShouldSeeEXPERTSpecificMenuItems() {
     }
 
+
     @And("I fill in email {dyn}")
     public void iFillInEmailName(String email) {
         loginPage.fillInUserEmail(email);
     }
+
 }
 
