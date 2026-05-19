@@ -1,6 +1,7 @@
 package pages;
 
 
+
 import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,13 +13,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 
+
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.time.Duration;
 
+import java.time.format.DateTimeFormatter;
+import static org.junit.Assert.assertEquals;
 
 
 public class PatientPage extends PageObject {
@@ -62,8 +65,19 @@ public class PatientPage extends PageObject {
     @FindBy(xpath = "//button[@type='submit']")
     private WebElement submitPatient;
 
+    @FindBy(xpath = "//div[@class='notistack-CollapseWrapper']")
+    private WebElement notistack;
+
+    @FindBy(xpath = "//p[text()='CNP is required']")
+    private WebElement CNP_required;
+
 
     private static final Logger LOG = LoggerFactory.getLogger(pages.PatientPage.class);
+
+
+   // private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+
     WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
 
     public void goToPatientPage(){
@@ -117,24 +131,30 @@ public class PatientPage extends PageObject {
     }
 
     public void selectBirthDate(String date){
+
         WebElement birthDateInput = getDriver().findElement(By.xpath("//input[@placeholder='DD.MM.YYYY']"));
         birthDateInput.click();
         birthDateInput.clear();
         birthDateInput.sendKeys(date);
         birthDateInput.sendKeys(Keys.TAB);
+
+//        WebElement birthDateInput = getDriver().findElement(By.xpath("//input[@placeholder='DD.MM.YYYY']"));
+//            birthDateInput.click();
+//            birthDateInput.clear();
+//            birthDateInput.sendKeys(date);
+//            birthDateInput.sendKeys(Keys.TAB);
+
 //        JavascriptExecutor js = (JavascriptExecutor) getDriver();
 //        js.executeScript("arguments[0].removeAttribute('readOnly')", birthDateInput);
 //        birthDateInput.clear();
 //        birthDateInput.sendKeys(birthDate);
 //        birthDateInput.sendKeys(Keys.TAB);
 
-
-
 //        wait.until(ExpectedConditions.elementToBeClickable(birthDatePatient));
 //        Actions actions= new Actions(getDriver());
 //        Action build = actions.moveToElement(birthDatePatient).click().sendKeys(birthDate).build();
-//
 //        build.perform();
+
 }
 
 
@@ -196,6 +216,13 @@ public class PatientPage extends PageObject {
 
 
     }
+
+
+    public void patientCreated(){
+        wait.until(ExpectedConditions.visibilityOf(notistack));
+        assertEquals("Patient created successfully!", notistack.getText());
+    }
+
 
 
     public void clickAddPatient() {
@@ -285,6 +312,19 @@ public class PatientPage extends PageObject {
     public boolean isNameErrorMessageDisplayed() {
         return nameErrorMessage.isDisplayed();
     }
+
+    public void formWithoutCNP (String name){
+        wait.until(ExpectedConditions.visibilityOf(fullNamePatient));
+        fullNamePatient.clear();
+        fullNamePatient.sendKeys(name);
+        submitPatient.click();
+    }
+
+    public void warningMessageCNP (){
+        wait.until(ExpectedConditions.visibilityOf(CNP_required));
+        assertEquals("CNP is required", CNP_required.getText());
+    }
+
 
 }
 

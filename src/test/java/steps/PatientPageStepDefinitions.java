@@ -27,4 +27,19 @@ public class PatientPageStepDefinitions {
         patientPage.completeFormAddPatient("Popescu","1234564567812", "test@gmail.com", "65","");
 
     }
+
+    @And("The request has been successfully created")
+    public void theRequestHasBeenSuccessfullyCreated() {
+       patientPage.patientCreated();
+    }
+
+    @And("I click on submit without filling in te required CNP field")
+    public void iClickOnSubmitWithoutFillingInTeRequiredCNPField() {
+        patientPage.formWithoutCNP("Popa Maria");
+    }
+
+    @Then("A warning message should be appears")
+    public void aWarningMessageShouldBeAppears() {
+        patientPage.warningMessageCNP();
+    }
 }

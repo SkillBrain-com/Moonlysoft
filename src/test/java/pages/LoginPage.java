@@ -86,7 +86,7 @@ public class LoginPage extends PageObject {
             case "expert" -> getCredentialsProperties().getProperty("expert.password");
             case "admin" -> getCredentialsProperties().getProperty("admin.password");
             default -> {
-                LOG.error("Selected user {} is not available", user);
+                LOG.error("Selected user {} is not available.", user);
                 throw new RuntimeException("Selected user is not valid.");
             }
         };

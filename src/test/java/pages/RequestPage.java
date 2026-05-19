@@ -59,7 +59,6 @@ public class RequestPage extends PageObject {
     }
 
 
-
     public void goToAvailableTab(){
         waitFor(availableTab).waitUntilVisible();
        availableTab.click();
