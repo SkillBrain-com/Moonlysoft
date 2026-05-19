@@ -15,6 +15,7 @@ import java.time.Duration;
 import static org.junit.Assert.assertEquals;
 
 public class RegisterPage extends PageObject {
+    private UtilsPage js;
 
     // ── Pas 1: Informații Generale ──────────────────────────────────
     @FindBy(xpath = "//input[@id='first_name']")
@@ -136,7 +137,6 @@ public class RegisterPage extends PageObject {
     // ================================================================
 
     // Specialitate Medicala - AUTOCOMPLETE/COMBOBOX
-    // Scrie text, asteapta lista, selecteaza optiunea
     public void fillInSpecialtyName(String specialtyName) {
         LOG.info("Filling in specialty: {}", specialtyName);
         this.specialtyName.sendKeys(specialtyName);
@@ -257,7 +257,7 @@ public class RegisterPage extends PageObject {
     }
     // ================================================================
     // ASSERTURI PAS 1 - ERORI CAMPURI
-    // Adauga-le in RegisterPage.java
+
     // ================================================================
 
     // -- Elemente erori Pas 1 --
