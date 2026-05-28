@@ -15,6 +15,7 @@ public class PatientPageStepDefinition {
     PatientPage patientPage;
 
     private static final String PATIENT_NAME = "Test Patient Happy Flow";
+   
 
     @And("I navigate to patient page")
     public void iNavigateToPatientPage() {
@@ -80,32 +81,7 @@ public class PatientPageStepDefinition {
         assertTrue(patientPage.isToastNotificationVisible());
     }
 
-//    @And("the user clicks the edit button for patient {string}")
-//    public void theUserClicksTheEditButtonForPatient(String name) {
-//        patientPage.clickEditForPatient(PATIENT_NAME);
-//    }
 
-//    @Then("the user clears the {string} field")
-//    public void theUserClearsTheField(String arg0) {
-//        patientPage.clearFullNameField();
-//    }
-//
-//
-//    @And("the user clicks the Update Patient button")
-//    public void theUserClicksTheUpdatePatientButton() {
-//        patientPage.clickUpdatePatient();
-//    }
-//
-
-//    @Then("the error message is displayed")
-//    public void theErrorMessageIsDisplayed() {
-//        assertTrue(patientPage.isErrorMessageDisplayed());
-//    }
-//
-//    @And("the dialog remains open")
-//    public void theDialogRemainsOpen() {
-//        assertTrue(patientPage.isDialogOpen());
-//    }
 
     @And("I leave the Full Name field empty")
     public void iLeaveTheFullNameFieldEmpty() {
@@ -118,5 +94,29 @@ public class PatientPageStepDefinition {
        assertTrue(patientPage.isNameErrorMessageDisplayed());
     }
 
+//    @And("I fill in CNP with {string}")
+//    public void iFillInCNPWith(String arg0) {
+//        // Write code here that turns the phrase above into concrete actions
+//        throw new PendingException();
+//    }
+//
+//    @When("I log out")
+//    public void iLogOut() {
+//        // Write code here that turns the phrase above into concrete actions
+//        throw new PendingException();
+//    }
+//
+//    @And("I log in as an expert user")
+//    public void iLogInAsAnExpertUser() {
+//        // Write code here that turns the phrase above into concrete actions
+//        throw new PendingException();
+//    }
+//
+//
+//    @Then("the patient {string} should be visible in the table")
+//    public void thePatientShouldBeVisibleInTheTable(String arg0) {
+//        // Write code here that turns the phrase above into concrete actions
+//        throw new PendingException();
+//    }
 }
 
