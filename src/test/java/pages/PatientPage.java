@@ -50,17 +50,11 @@ public class PatientPage extends PageObject {
     @FindBy(xpath = "//div[@role='alert']")
     private WebElement toastNotification;
 
-//    @FindBy(xpath = "(//button[@aria-label='Edit'])[1]")
-//    private WebElement editPatientButton;
-//
-//    @FindBy(xpath = "//button[normalize-space()='Update Patient']")
-//    private WebElement updatePatientButton;
+
 
     @FindBy(xpath = "//p[@id='patient-name-helper-text']")
     private WebElement nameErrorMessage;
 
-//    @FindBy(xpath = "//div[@role='dialog']")
-//    private WebElement editDialog;
 
 
     public void navigateToPatientPage() {
@@ -171,31 +165,7 @@ public class PatientPage extends PageObject {
     }
 
 }
-////    ================EDIT PATIENT========================
-//
-//    public void clickEditForPatient(String name) {
-//        find(By.xpath(
-//                "//tr[contains(.,'" + name + "')]//button[@aria-label='Edit']"
-//        )).click();
-//    }
-//
-//    public void clearFullNameField() {
-//        new WebDriverWait(getDriver(), Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOf(fullNameField));
-//        fullNameField.clear();
-//
-//    }
-//
-//    public void clickUpdatePatient() {
-//        updatePatientButton.click();
-//    }
-//
-//    public boolean isErrorMessageDisplayed() {
-//        return waitFor(nameErrorMessage).isDisplayed();
-//    }
-//
-//    public boolean isDialogOpen() {
-//        return editDialog.isDisplayed();
-//    }
+
 
 
 
