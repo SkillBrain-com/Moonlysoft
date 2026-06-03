@@ -1,9 +1,10 @@
 package steps;
-import io.cucumber.java.en.When;
-import pages.RegisterPage;
+
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import pages.RegisterPage;
 
 import static org.junit.Assert.assertTrue;
 
@@ -14,6 +15,7 @@ public class RegisterPageStepDefinition {
     public void navigateToRegisterPage() {
         registerPage.navigateToRegisterPage();
     }
+
     @When("I complete first step {string}, {string}, {string}, {string}")
     public void completeFirstStep(String firstName, String lastName, String email, String password) {
         registerPage.completeStep1(firstName, lastName, email, password);
@@ -24,6 +26,7 @@ public class RegisterPageStepDefinition {
                                    String workplace, String county, String city) {
         registerPage.completeStep2(specialty, cuim, rank, workplace, county, city);
     }
+
     @When("user fills in first name with {string}")
     public void userFillsInFirstName(String firstName) {
         registerPage.fillInFirstName(firstName);
@@ -48,6 +51,7 @@ public class RegisterPageStepDefinition {
     public void userClicksOnNextButton() {
         registerPage.clickOnNextButton();
     }
+
     @When("user fills in specialty with {string}")
     public void userFillsInSpecialty(String specialty) {
         registerPage.fillInSpecialtyName(specialty);
@@ -87,6 +91,27 @@ public class RegisterPageStepDefinition {
     public void userClicksOnCreateAccountButton() {
         registerPage.clickOnCreateButton();
     }
+
+    @When("user scrolls to agreement checkbox")
+    public void userScrollsToAgreementCheckbox() {
+        registerPage.scrollToAgreementCheckbox();
+    }
+
+    @When("user checks the agreement checkbox")
+    public void userChecksTheAgreementCheckbox() {
+        registerPage.clickOnAgreementCheckbox();
+    }
+
+    @When("user clicks on Accept and Create Account button")
+    public void userClicksOnAcceptAndCreateButton() {
+        registerPage.clickOnAcceptAndCreateButton();
+    }
+
+    @When("user completes agreement dialog")
+    public void userCompletesAgreementDialog() {
+        registerPage.completeAgreementDialog();
+    }
+
     @Then("first name error message is displayed")
     public void firstNameErrorIsDisplayed() {
         registerPage.checkFirstNameError();
@@ -111,6 +136,7 @@ public class RegisterPageStepDefinition {
     public void allStep1ErrorsAreDisplayed() {
         registerPage.checkAllStep1Errors();
     }
+
     @Then("user is on step 2")
     public void userIsOnStep2() {
         registerPage.checkStep2IsActive();
@@ -148,17 +174,18 @@ public class RegisterPageStepDefinition {
 
     @Then("all step 2 error messages are displayed")
     public void allStep2ErrorsAreDisplayed() {
-        registerPage.checkAllStep2Errors();}
+        registerPage.checkAllStep2Errors();
+    }
+
     @Then("agreement dialog is displayed")
     public void agreementDialogIsDisplayed() {
         assertTrue("Agreement dialog should be visible",
-                registerPage.isAgreementDialogDisplayed());}
+                registerPage.isAgreementDialogDisplayed());
+    }
 
-
-
-
-
-
-
-
+    @Then("success message is displayed")
+    public void successMessageIsDisplayed() {
+        assertTrue("Success message should be visible",
+                registerPage.isSuccessMessageDisplayed());
+    }
 }
