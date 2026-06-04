@@ -73,6 +73,25 @@ public class HomePageStepDefinitions {
 
     }
 
+
+    @Then("I click on filters")
+    public void iClickOnFilters() {
+       homePage.openFilters();
+    }
+
+    @And("The user clicks on Status {string}")
+    public void iClickOnStatus(String status) {
+         homePage.getStatus(status);
+
+    }
+
+    @Then("the page should displays only the selected status")
+    public void thePageShouldDisplaysOnlyTheSelectedStatus() {
+         homePage.checkStatus();
+    }
+
+
+
 }
 
 
