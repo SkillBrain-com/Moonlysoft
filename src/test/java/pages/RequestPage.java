@@ -19,7 +19,7 @@ public class RequestPage extends PageObject {
     @FindBy(xpath = "//a[@href='/requests']")
     private WebElement requestsButton;
 
-    @FindBy(xpath = "//h1[normalize-space()='Solicitările Mele Alocate']")
+    @FindBy(xpath = "//h1[normalize-space()='My Assigned Requests']")
     private WebElement titleRequestsPage;
 
     @FindBy(xpath="//button[@aria-label='open drawer']")
@@ -28,7 +28,7 @@ public class RequestPage extends PageObject {
     @FindBy(xpath="//a[@href='/patient']")
     private  WebElement patientButton;
 
-    @FindBy(xpath = "(//button[normalize-space()='Disponibile'])[1]")
+    @FindBy(xpath = "(//button[normalize-space()='Available'])[1]")
     private WebElement availableTab;
 
 
@@ -54,7 +54,7 @@ public class RequestPage extends PageObject {
         LOG.info("Requests button clicked successfully");
 
         wait.until(ExpectedConditions.visibilityOf(titleRequestsPage));
-        assertEquals("Solicitările Mele Alocate", titleRequestsPage.getText());
+        assertEquals("My Assigned Requests", titleRequestsPage.getText());
 
     }
 

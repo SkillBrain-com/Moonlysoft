@@ -1,5 +1,6 @@
 package steps;
 
+
 import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -22,9 +23,9 @@ public class PatientPageStepDefinitions {
         patientPage.addPatient();
     }
 
-    @Then("User enters all required information to complete the form")
-    public void userEntersAllRequiredInformationToCompleteTheForm() {
-        patientPage.completeFormAddPatient("Popescu","1234564567812", "test@gmail.com", "65","");
+    @Then("User enters all required information to complete the form with {string},{string},{string},{string},{string}")
+    public void userEntersAllRequiredInformationToCompleteTheForm(String name, String cnp, String email,String weight, String conditions) {
+        patientPage.completeFormAddPatient(name,cnp,email,weight,conditions);
 
     }
 
@@ -41,5 +42,45 @@ public class PatientPageStepDefinitions {
     @Then("A warning message should be appears")
     public void aWarningMessageShouldBeAppears() {
         patientPage.warningMessageCNP();
+    }
+
+    @And("I fill date with {dyn}")
+    public void iFillDateWith(String date) {
+    patientPage.selectBirthDate(date);
+    }
+
+    @Then("I click on new request")
+    public void iClickOnNewRequest() {
+        patientPage.addingRequest();
+    }
+
+    @And("I fill in the general info with {string},{string},{string}")
+    public void iFillInTheGeneralInfo(String title, String description, String patient) {
+        patientPage.generalInfoForm(title, description, patient);
+    }
+
+    @And("I go to the next page expert assignment")
+    public void iGoToTheNextPageExpertAssignment() {
+       patientPage.assignmentExpertTAB();
+    }
+
+    @And("I choose the expert to assignment to request")
+    public void iChooseTheExpertToAssignmentToRequest() {
+        patientPage.chooseExpert();
+    }
+
+    @Then("I click on create request button")
+    public void iClickOnCreateRequestButton() {
+        patientPage.createRequest();
+    }
+
+    @And("I check that the last created case ID is incremented by {int} compared to the previous ID")
+    public void iCheckThatTheLastCreatedCaseIDIsIncrementedByComparedToThePreviousID(int numberID) {
+        patientPage.compareCaseID(numberID);
+    }
+
+    @And("I check the number of available cases {int}")
+    public void iCheckTheNumberOfAvailableCases(int number) {
+       patientPage.availableCases(number);
     }
 }

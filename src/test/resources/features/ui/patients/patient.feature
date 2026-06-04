@@ -29,7 +29,7 @@ Feature: Patient page functionality
     And confirms the deletion in the confirmation dialog
     Then a toast notification should appear
 
-#  @this
+
   Scenario: Add patient with empty full name field
     When I click Add Patient button
     And I leave the Full Name field empty

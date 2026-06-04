@@ -3,6 +3,7 @@ package pages;
 import config.EnvironmentConfig;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -63,8 +64,16 @@ public class LoginPage extends PageObject {
 
     public void clickOnLoginButton() {
         JavascriptExecutor jsExecutor = utilsPage.getJsExecutor();
-        jsExecutor.executeScript("arguments[0].scrollIntoView();", loginButton);
-        loginButton.click();
+        WebElement login = null;
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
+        try {
+            login = wait.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath("//button[text()='Autentifică-te']"))));
+            jsExecutor.executeScript("arguments[0].scrollIntoView();", login);
+        }catch (Exception e){
+            login = wait.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath("//button[text()='Sign in']"))));
+            jsExecutor.executeScript("arguments[0].scrollIntoView();", login);
+        }
+        login.click();
     }
 
     private String getEmail(String user) {

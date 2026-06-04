@@ -1,41 +1,36 @@
 package pages;
 
 
-
 import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 
 
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.time.Duration;
 
-import java.time.format.DateTimeFormatter;
 import static org.junit.Assert.assertEquals;
 
 
 public class PatientPage extends PageObject {
 
-    @FindBy(xpath="//a[@href='/patient']")
+    @FindBy(xpath = "//a[@href='/patient']")
     private WebElement patientButton;
 
-    @FindBy(xpath="//button[@aria-label='open drawer']")
-    private  WebElement burger;
+    @FindBy(xpath = "//button[@aria-label='open drawer']")
+    private WebElement burger;
 
     @FindBy(xpath = "//h1[normalize-space()='Patients']")
     private WebElement titlePatientPage;
 
-    @FindBy(xpath="//button[normalize-space()='Add Patient']")
+    @FindBy(xpath = "//button[normalize-space()='Add Patient']")
     private WebElement addPatientButton;
 
     @FindBy(xpath = "//input[@id='patient-name']")
@@ -71,16 +66,50 @@ public class PatientPage extends PageObject {
     @FindBy(xpath = "//p[text()='CNP is required']")
     private WebElement CNP_required;
 
+    @FindBy(xpath = "//label[text()='Birth Date'] //following-sibling::div //div //button")
+    private WebElement dateBitrth;
+
+    @FindBy(xpath = "//button[normalize-space()='OK']")
+    private WebElement oKDate;
+
+    @FindBy(xpath = "//button[normalize-space()='New Request']")
+    private WebElement requestButton;
+
+    @FindBy(xpath = "//input[@placeholder='Enter request title']")
+    private WebElement titleRequest;
+
+    @FindBy(xpath = "//textarea[@placeholder='Describe the medical consultation or service needed']")
+    private WebElement descriptionRequest;
+
+    @FindBy(xpath = "//input[@placeholder='Search for a patient or add a new one']")
+    private WebElement patientRequest;
+
+    @FindBy(xpath = "//div[@aria-owns='_r_n6_-listbox']")
+    private WebElement listBoxPatient;
+
+    @FindBy(xpath = "//button[normalize-space()='Next']")
+    private WebElement nextButton;
+
+    @FindBy(xpath = "//span[text()='Expert Assignment']")
+    private WebElement textExpertAssignment;
+
+    @FindBy(xpath = "//p[normalize-space()='Laurentiu Bucur'] // parent::div")
+    private WebElement selectExpert;
+
+    @FindBy(xpath = "//button[normalize-space()='Create Request']")
+    private WebElement createRequestButton;
+
+    @FindBy(xpath = "//svg[text()='Decline']")
+    private WebElement declineButton;
+
+
 
     private static final Logger LOG = LoggerFactory.getLogger(pages.PatientPage.class);
 
 
-   // private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
-
     WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
 
-    public void goToPatientPage(){
+    public void goToPatientPage() {
 
         wait.until(ExpectedConditions.visibilityOf(burger));
         if (burger.isDisplayed()) {
@@ -94,13 +123,13 @@ public class PatientPage extends PageObject {
     }
 
 
-    public void addPatient(){
+    public void addPatient() {
         LOG.info("Add patient button was successfully clicked");
         wait.until(ExpectedConditions.visibilityOf(addPatientButton));
         addPatientButton.click();
     }
 
-    public void completeFormAddPatient(String name, String cnp, String email,String weight, String conditions){
+    public void completeFormAddPatient(String name, String cnp, String email, String weight, String conditions) {
         wait.until(ExpectedConditions.visibilityOf(fullNamePatient));
         fullNamePatient.clear();
         fullNamePatient.sendKeys(name);
@@ -114,7 +143,6 @@ public class PatientPage extends PageObject {
         bloodTypePatient.click();
         selectBloodType("B+");
 
-        selectBirthDate("15.11.1998");
         weightKGPatient.clear();
         weightKGPatient.sendKeys(weight);
 
@@ -125,39 +153,72 @@ public class PatientPage extends PageObject {
 
     }
 
-    public void selectBloodType(String bloodType){
+    public void selectBloodType(String bloodType) {
         String selector = String.format("//li[@data-value='%s']", bloodType);
         getDriver().findElement(By.xpath(selector)).click();
     }
 
-    public void selectBirthDate(String date){
+    public void selectBirthDate(String date) {
 
-        WebElement birthDateInput = getDriver().findElement(By.xpath("//input[@placeholder='DD.MM.YYYY']"));
-        birthDateInput.click();
-        birthDateInput.clear();
-        birthDateInput.sendKeys(date);
-        birthDateInput.sendKeys(Keys.TAB);
+        String day = date.split("-")[2];
+        System.out.println(day);
+        System.out.println(date);
+        wait.until(ExpectedConditions.visibilityOf(dateBitrth));
+        dateBitrth.click();
+        WebElement day1 = getDriver().findElement(By.xpath(String.format("//button[text()='%s']", day)));
+        wait.until(ExpectedConditions.visibilityOf(day1));
+        day1.click();
+        //  oKDate.click();
+    }
 
-//        WebElement birthDateInput = getDriver().findElement(By.xpath("//input[@placeholder='DD.MM.YYYY']"));
-//            birthDateInput.click();
-//            birthDateInput.clear();
-//            birthDateInput.sendKeys(date);
-//            birthDateInput.sendKeys(Keys.TAB);
+    public void addingRequest() {
+        requestButton.click();
+    }
 
-//        JavascriptExecutor js = (JavascriptExecutor) getDriver();
-//        js.executeScript("arguments[0].removeAttribute('readOnly')", birthDateInput);
-//        birthDateInput.clear();
-//        birthDateInput.sendKeys(birthDate);
-//        birthDateInput.sendKeys(Keys.TAB);
+    public void generalInfoForm(String title, String description, String patient) {
+        wait.until(ExpectedConditions.visibilityOf(titleRequest));
+        titleRequest.click();
+        titleRequest.sendKeys(title);
+        descriptionRequest.click();
+        descriptionRequest.sendKeys(description);
+        patientRequest.click();
+        patientRequest.sendKeys(patient);
+        WebElement listRequestPatient = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//li[contains(.,'" + patient + "')]")));
+        assert listRequestPatient != null;
+        listRequestPatient.click();
+    }
 
-//        wait.until(ExpectedConditions.elementToBeClickable(birthDatePatient));
-//        Actions actions= new Actions(getDriver());
-//        Action build = actions.moveToElement(birthDatePatient).click().sendKeys(birthDate).build();
-//        build.perform();
+    public void assignmentExpertTAB() {
+        nextButton.click();
+        String actualText = textExpertAssignment.getText();
+        Assert.assertEquals("Expert Assignment", actualText);
+    }
 
-}
+    public void chooseExpert() {
+        selectExpert.click();
+    }
+
+    public void createRequest() {
+        createRequestButton.click();
+    }
+
+    public void compareCaseID(int numberID) {
+        WebElement previousID = getDriver().findElement(By.xpath(String.format("//p[normalize-space()='%d']", numberID)));
+        WebElement lastID = getDriver().findElement(By.xpath(String.format("//p[normalize-space()='%d']", numberID + 1)));
+        wait.until(ExpectedConditions.visibilityOf(previousID));
+        wait.until(ExpectedConditions.visibilityOf(lastID));
+        int previous = Integer.parseInt(previousID.getText().trim());
+        int last = Integer.parseInt(lastID.getText().trim());
+
+        Assert.assertTrue("The las element is incremented by 1 ", last > previous);
+
+    }
 
 
+    public void availableCases(int number){
+        WebElement availableNumber=getDriver().findElement(By.xpath(String.format("//div[normalize-space()='%d']", number)));
+        availableNumber.getText();
+    }
 
     @FindBy(xpath = "//button[@aria-label='open drawer']")
     private WebElement burgerMenu;
@@ -218,11 +279,10 @@ public class PatientPage extends PageObject {
     }
 
 
-    public void patientCreated(){
+    public void patientCreated() {
         wait.until(ExpectedConditions.visibilityOf(notistack));
         assertEquals("Patient created successfully!", notistack.getText());
     }
-
 
 
     public void clickAddPatient() {
@@ -313,14 +373,14 @@ public class PatientPage extends PageObject {
         return nameErrorMessage.isDisplayed();
     }
 
-    public void formWithoutCNP (String name){
+    public void formWithoutCNP(String name) {
         wait.until(ExpectedConditions.visibilityOf(fullNamePatient));
         fullNamePatient.clear();
         fullNamePatient.sendKeys(name);
         submitPatient.click();
     }
 
-    public void warningMessageCNP (){
+    public void warningMessageCNP() {
         wait.until(ExpectedConditions.visibilityOf(CNP_required));
         assertEquals("CNP is required", CNP_required.getText());
     }

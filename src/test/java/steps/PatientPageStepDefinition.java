@@ -15,7 +15,7 @@ public class PatientPageStepDefinition {
     PatientPage patientPage;
 
     private static final String PATIENT_NAME = "Test Patient Happy Flow";
-   
+
 
     @And("I navigate to patient page")
     public void iNavigateToPatientPage() {
@@ -82,17 +82,17 @@ public class PatientPageStepDefinition {
     }
 
 
-
     @And("I leave the Full Name field empty")
     public void iLeaveTheFullNameFieldEmpty() {
-    patientPage.leaveFullNameEmpty();
+        patientPage.leaveFullNameEmpty();
     }
 
 
     @Then("an error message {string} should appear under the Full Name field")
     public void anErrorMessageShouldAppearUnderTheFullNameField(String arg0) {
-       assertTrue(patientPage.isNameErrorMessageDisplayed());
+        assertTrue(patientPage.isNameErrorMessageDisplayed());
     }
+
 
 //    @And("I fill in CNP with {string}")
 //    public void iFillInCNPWith(String arg0) {

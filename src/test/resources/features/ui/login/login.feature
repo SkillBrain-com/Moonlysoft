@@ -19,20 +19,14 @@ Feature: Login functionality
       | "admin"   |
 
 
-<<<<<<< HEAD
 
-
-    Scenario: Login with wrong credentials
-=======
   Scenario: Login with wrong credentials
->>>>>>> 6345b9c (work)
+
 #    TODO - implement negative scenarios
 #    And I fill in email ""
     And I fill in password ""
     And I click on login button
     Then I check error message is displayed
-
-
 
 
   Scenario: REGULAR user sees correct sidebar menu
@@ -66,10 +60,7 @@ Feature: Login functionality
 
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 6345b9c (work)
     Scenario: New case validation errors
 
 #      Given the REGULAR user is creating a case
