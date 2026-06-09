@@ -74,6 +74,8 @@ public class LoginPage extends PageObject {
             jsExecutor.executeScript("arguments[0].scrollIntoView();", login);
         }
         login.click();
+        jsExecutor.executeScript("arguments[0].scrollIntoView();", loginButton);
+        loginButton.click();
     }
 
     private String getEmail(String user) {

@@ -3,6 +3,7 @@ Feature: Login functionality
   Background:
     Given I navigate to login page
 
+
   Scenario: Login with REGULAR user
     When I login as "regular" user
     And I change language to "english"
