@@ -10,6 +10,7 @@ import io.cucumber.java.PendingException;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 import pages.HomePage;
 
 public class HomePageStepDefinitions {
@@ -69,9 +70,26 @@ public class HomePageStepDefinitions {
 
     @And("I check user is logged out")
     public void iCheckUserIsLoggedOut() {
+        homePage.checkLoginPage();
+    }
 
+    @Then("I click on filters")
+    public void iClickOnFilters() {
+       homePage.openFilters();
+    }
+
+    @And("The user clicks on Status {string}")
+    public void iClickOnStatus(String status) {
+         homePage.getStatus(status);
 
     }
+
+    @Then("the page should displays only the selected status")
+    public void thePageShouldDisplaysOnlyTheSelectedStatus() {
+         homePage.checkStatus();
+    }
+
+
 
 }
 

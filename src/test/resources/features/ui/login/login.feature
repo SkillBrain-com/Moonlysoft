@@ -20,8 +20,8 @@ Feature: Login functionality
 
 
 
+  Scenario: Login with wrong credentials
 
-    Scenario: Login with wrong credentials
 #    TODO - implement negative scenarios
 #    And I fill in email ""
     And I fill in password ""
@@ -60,6 +60,7 @@ Feature: Login functionality
 
 
 
+
     Scenario: New case validation errors
 
 #      Given the REGULAR user is creating a case
@@ -80,4 +81,14 @@ Feature: Login functionality
     Examples:
       | name             |
       | {date:today+:yyyyMMdd} |
+
+  Scenario: Add filters on the Dashboard
+    When I login as "expert" user
+    And  I check user is logged in
+    Then I click on filters
+    And  The user clicks on Status "Deschis"
+    Then the page should displays only the selected status
+
+
+
 

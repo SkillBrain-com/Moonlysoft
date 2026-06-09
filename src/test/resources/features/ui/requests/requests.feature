@@ -13,7 +13,7 @@ Feature: Requests functionality
     Then the case should be in Active tab
     And the Active tab counter should be updated
 
-  @this
+
   Scenario:Check Available tab is updated
     When I click on Available tab
     And I click the Decline button on a case

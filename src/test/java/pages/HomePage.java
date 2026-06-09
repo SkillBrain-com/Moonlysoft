@@ -3,14 +3,21 @@ package pages;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 import java.time.Duration;
+
+
+import static org.junit.Assert.assertEquals;
 
 
 /**
@@ -39,6 +46,11 @@ public class HomePage extends PageObject {
     @FindBy(xpath = "//p[normalize-space()='English']")
     private WebElement englishButton;
 
+    @FindBy(xpath = "//p[normalize-space()='Login']")
+    private WebElement loginTitle;
+
+
+
     public void clickLogout() {
         profileIcon.click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
@@ -58,7 +70,17 @@ public class HomePage extends PageObject {
     @FindBy(tagName = "h1")
     private WebElementFacade heading;
 
+    @FindBy(xpath = "//p[@class='MuiTypography-root MuiTypography-body2 css-gxq69q']")
+    private WebElement filtersButton;
+
+    @FindBy(xpath = "//input[@id='_r_17_']")
+    private WebElement statusButton;
+
+    @FindBy(xpath = "tbody tr:nth-child(1) td:nth-child(5) div:nth-child(1) span:nth-child(1)")
+    private  WebElement chekedStatus;
+
     private WebDriver driver = getDriver();
+
 
     /**
      * Navigate to base.url (resolved from serenity.conf).
@@ -74,4 +96,45 @@ public class HomePage extends PageObject {
     public String getPageTitle() {
         return getDriver().getTitle();
     }
+
+    public void openFilters(){
+        filtersButton.click();
+    }
+
+    public void getStatus (String status) {
+        openFilters();
+       switch (status.toLowerCase()) {
+            case "deschis":
+                driver.findElement(By.xpath("//span[text()='Deschis'][1]")).click();
+                break;
+            case "alocat":
+                driver.findElement(By.xpath("(//span[text()='Alocat'])")).click();
+                break;
+            case "finalizat":
+                driver.findElement(By.xpath("//span[text()='Finalizat']")).click();
+                break;
+            case "anulat":
+                driver.findElement(By.xpath("//span[text()='Anulat']")).click();
+                break;
+            default: {
+                LOG.error("Selected status {} is not available", status);
+                throw new RuntimeException("Selected status is not valid.");
+            }
+        }
+    }
+
+    public void checkStatus(){
+        try {
+            assertEquals("Deschis", chekedStatus);
+        }
+       catch (Exception e){
+           LOG.error("The status choice is not displayed");
+       }
+
+    }
+
+    public void checkLoginPage(){
+        Assert.assertEquals("Login", loginTitle.getText());
+    }
+
 }
