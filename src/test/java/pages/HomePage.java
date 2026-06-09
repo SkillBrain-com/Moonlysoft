@@ -3,6 +3,7 @@ package pages;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -44,6 +45,11 @@ public class HomePage extends PageObject {
 
     @FindBy(xpath = "//p[normalize-space()='English']")
     private WebElement englishButton;
+
+    @FindBy(xpath = "//p[normalize-space()='Login']")
+    private WebElement loginTitle;
+
+
 
     public void clickLogout() {
         profileIcon.click();
@@ -125,6 +131,10 @@ public class HomePage extends PageObject {
            LOG.error("The status choice is not displayed");
        }
 
+    }
+
+    public void checkLoginPage(){
+        Assert.assertEquals("Login", loginTitle.getText());
     }
 
 }

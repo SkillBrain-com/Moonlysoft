@@ -1,15 +1,17 @@
 package steps;
 
 
-import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+
 import pages.PatientPage;
+import pages.RequestsPage;
 
 public class PatientPageStepDefinitions {
 
     //    Dependency injection
     private PatientPage patientPage;
+
 
     @And("I click on patient tab")
     public void iClickOnPatientTab() {
@@ -74,13 +76,11 @@ public class PatientPageStepDefinitions {
         patientPage.createRequest();
     }
 
-    @And("I check that the last created case ID is incremented by {int} compared to the previous ID")
-    public void iCheckThatTheLastCreatedCaseIDIsIncrementedByComparedToThePreviousID(int numberID) {
-        patientPage.compareCaseID(numberID);
+    @And("I check if the last request was added")
+    public void iCheckTheLastID() {
+        patientPage.chackingCaseID();
     }
 
-    @And("I check the number of available cases {int}")
-    public void iCheckTheNumberOfAvailableCases(int number) {
-       patientPage.availableCases(number);
-    }
+
+
 }

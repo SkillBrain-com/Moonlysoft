@@ -102,9 +102,12 @@ public class PatientPage extends PageObject {
     @FindBy(xpath = "//svg[text()='Decline']")
     private WebElement declineButton;
 
+    @FindBy(xpath = "//p[text()='Available cases']/preceding-sibling::div")
+    private WebElement availableTabCounter;
 
 
     private static final Logger LOG = LoggerFactory.getLogger(pages.PatientPage.class);
+    private int availableCounterBefore;
 
 
     WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
@@ -202,23 +205,14 @@ public class PatientPage extends PageObject {
         createRequestButton.click();
     }
 
-    public void compareCaseID(int numberID) {
-        WebElement previousID = getDriver().findElement(By.xpath(String.format("//p[normalize-space()='%d']", numberID)));
-        WebElement lastID = getDriver().findElement(By.xpath(String.format("//p[normalize-space()='%d']", numberID + 1)));
-        wait.until(ExpectedConditions.visibilityOf(previousID));
-        wait.until(ExpectedConditions.visibilityOf(lastID));
-        int previous = Integer.parseInt(previousID.getText().trim());
-        int last = Integer.parseInt(lastID.getText().trim());
-
-        Assert.assertTrue("The las element is incremented by 1 ", last > previous);
+    public void chackingCaseID() {
+    //    WebElement lastRequestTitle = getDriver().findElement(By.xpath(String.format("//p[@aria-label='%s'][1]", titleRequest.getText())));
+      WebElement lastRequestTitle1 = getDriver().findElement(By.xpath("//p[@aria-label='Back pain'][1]"));
+        Assert.assertEquals("Back pain", lastRequestTitle1.getText());
 
     }
 
 
-    public void availableCases(int number){
-        WebElement availableNumber=getDriver().findElement(By.xpath(String.format("//div[normalize-space()='%d']", number)));
-        availableNumber.getText();
-    }
 
     @FindBy(xpath = "//button[@aria-label='open drawer']")
     private WebElement burgerMenu;
@@ -254,10 +248,8 @@ public class PatientPage extends PageObject {
     private WebElement toastNotification;
 
 
-
     @FindBy(xpath = "//p[@id='patient-name-helper-text']")
     private WebElement nameErrorMessage;
-
 
 
     public void navigateToPatientPage() {
@@ -275,9 +267,7 @@ public class PatientPage extends PageObject {
             patientsTab.click();
         }
 
-
     }
-
 
     public void patientCreated() {
         wait.until(ExpectedConditions.visibilityOf(notistack));

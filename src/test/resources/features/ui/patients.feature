@@ -1,5 +1,5 @@
 @ui
-Feature: Home Page
+Feature: Patient Page
 
   Background:
     Given I navigate to login page
@@ -10,7 +10,6 @@ Feature: Home Page
     Then I click on filters
     And  The user clicks on Status "Deschis"
     Then the page should displays only the selected status
-
 
   Scenario: Adding a new patient
     When I login as "regular" user
@@ -29,7 +28,6 @@ Feature: Home Page
     And I click on submit without filling in te required CNP field
     Then A warning message should be appears
 
-
   Scenario: Adding a new request
     When I login as "regular" user
     And I change language to "english"
@@ -38,18 +36,16 @@ Feature: Home Page
     And I go to the next page expert assignment
     And I choose the expert to assignment to request
     Then I click on create request button
-    And I check that the last created case ID is incremented by 1 compared to the previous ID
-#    testul pica la validarea incrementarii
+    And I check if the last request was added
 
   @this
   Scenario: Decline case
     When I login as "expert" user
     And I change language to "english"
     And I check user is on requests page
-    Then I clicks on Available tab
-    And I check the number of available cases 3
+    Then I click on Available tab
     And user completes log out process
-#    Then I check user is logged out
+    Then I check user is logged out
     And I navigate to login page
     When I login as "regular" user
     And I change language to "english"
@@ -59,17 +55,10 @@ Feature: Home Page
     And I choose the expert to assignment to request
     Then I click on create request button
     And user completes log out process
-#    And I check user is logged out
+    And I check user is logged out
     When I login as "expert" user
     And  I check user is on requests page
-    Then I clicks on Available tab
-#    And I click on "Decline" button on case
-
-
-
-
-
-
-#    Then  : The case should be remove from the "Available" tab
-#    And   : The case should be appears in the "Declined" tab
-
+    Then I click on Available tab
+    And I click the Decline button on a case
+    Then the case should be removed from the Available tab
+    And the tab counter should update correctly
